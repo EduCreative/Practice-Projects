@@ -35,7 +35,7 @@ body {
   width: 26rem;
   border-radius: 10px;
   background: linear-gradient(0deg, #9aa7c3, #b7c7e8);
-  box-shadow: -0.5rem -0.5rem 1rem #444a57, 0.5rem 0.5rem 1rem #ffffff;
+  box-shadow: -0.5rem -0.5rem 0.5rem #444a57, 0.5rem 0.5rem 0.5rem #ffffff;
 }
 
 #quote-box > #text {
