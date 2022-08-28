@@ -5,7 +5,7 @@
   font-family: Arial, Helvetica, sans-serif;
   text-decoration: none;
   transition: 1s ease;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 :root {
@@ -107,7 +107,7 @@ body {
 @media only screen and (min-width: 600px) {
   /* For tablets: */
   * {
-    font-size: 22px;
+    font-size: 23px;
   }
   #title {
     margin: 0;
