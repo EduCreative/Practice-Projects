@@ -1,0 +1,42 @@
+class MyApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      counter: 0
+    };
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.setState({
+      counter: this.state.counter + 1
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <nav className="navbar">
+          <a href="#">Create Token</a>
+          <a href="#">List Viewer</a>
+          <a href="#">Transaction</a>
+          <a href="#">Released Patients</a>
+        </nav>
+
+        <div className="container">
+          <div className="title">Wudam Health Center</div>
+          <input
+            type="button"
+            className="token"
+            value="Create Token"
+            onClick={this.handleClick}
+          ></input>
+          <div className="last-token">Last Token: {this.state.counter}</div>
+        </div>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<MyApp />, document.getElementById("root"));

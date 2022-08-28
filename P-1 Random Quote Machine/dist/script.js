@@ -34,7 +34,7 @@ class MyApp extends React.Component {
       const { quotes } = this.state;
 
       if (quotes.length > 0) {
-        const index = Math.floor(Math.random() * quotes.length);
+        let index = Math.floor(Math.random() * quotes.length);
         this.setState({ index });
         this.setColors();
       }
@@ -47,10 +47,22 @@ class MyApp extends React.Component {
 
   render() {
     const { quotes, index } = this.state;
-
     const quote = quotes[index];
+    let twitterHref =
+    "https://twitter.com/intent/tweet?text=" +
+    encodeURIComponent(
+    '"' + (
+    quote && quote.quote) +
+    '" ' +
+    "\n[ By " + (
+    quote && quote.author) +
+    " ]" +
+    "\n\n Sent from #JavaScript Random #Quote Machine");
+
 
     return /*#__PURE__*/(
+      React.createElement("div", { id: "container" }, /*#__PURE__*/
+      React.createElement("div", { id: "title" }, "RANDOM QUOTE MACHINE"), /*#__PURE__*/
       React.createElement("div", { id: "quote-box" }, /*#__PURE__*/
       React.createElement("div", { id: "text" },
       " ", /*#__PURE__*/
@@ -63,19 +75,33 @@ class MyApp extends React.Component {
       React.createElement("hr", null), /*#__PURE__*/
       React.createElement("div", { id: "links" }, /*#__PURE__*/
       React.createElement("a", {
+        type: "button",
         id: "tweet-quote",
-        href: "https://twitter.com/intent/tweet",
+        title: "Tweet this Quote!",
+        href: twitterHref,
         target: "_top" },
 
       " ", /*#__PURE__*/
-      React.createElement("i", { className: "fa-brands fa-square-twitter" }, " "), " Twitter", " "), /*#__PURE__*/
+      React.createElement("i", { className: "fa-brands fa-square-twitter" }, " "), " Tweet", " "), /*#__PURE__*/
 
-      React.createElement("a", { id: "tumblr-quote", href: "#" },
+
+      React.createElement("a", {
+        type: "button",
+        id: "copy-quote",
+        title: "Copy this Quote!",
+        onClick: () => {
+          navigator.clipboard.writeText(
+          quote.quote + " (by " + quote.author + ")");
+
+        } },
+
       " ", /*#__PURE__*/
-      React.createElement("i", { className: "fa-brands fa-square-tumblr" }, " "), " Tumblr", " "), /*#__PURE__*/
+      React.createElement("i", { className: "fa-solid fa-copy" }), " Copy Quote", " "), /*#__PURE__*/
 
-      React.createElement("button", { id: "new-quote", onClick: this.getRandom }, /*#__PURE__*/
-      React.createElement("i", { class: "fa-solid fa-circle-chevron-right" }), " New Quote", " "))));
+
+      React.createElement("button", { id: "new-quote", title: "Next Quote!", onClick: this.getRandom }, /*#__PURE__*/
+      React.createElement("i", { class: "fa-solid fa-circle-chevron-right" }), " New Quote", " ")))));
+
 
 
 
@@ -84,3 +110,10 @@ class MyApp extends React.Component {
 
 
 ReactDOM.render( /*#__PURE__*/React.createElement(MyApp, null), document.getElementById("root"));
+
+/*
+<a id="tumblr-quote" href="#">
+              {" "}
+              <i className="fa-brands fa-square-tumblr"> </i> Tumblr{" "}
+            </a>
+*/

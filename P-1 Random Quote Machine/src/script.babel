@@ -1,0 +1,119 @@
+const link =
+  "https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json";
+
+const r = document.querySelector(":root");
+const colors = [
+  "#800800",
+  "#800880",
+  "#123456",
+  "#654321",
+  "#987321",
+  "#321321",
+  "#456321"
+];
+
+class MyApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      quotes: [],
+      index: 0
+    };
+    this.setColors = this.setColors.bind(this);
+  }
+
+  componentDidMount() {
+    fetch(link)
+      .then((res) => res.json())
+      .then((res) => {
+        this.setState({ quotes: res.quotes }, this.getRandom);
+      });
+  }
+
+  getRandom = () => {
+    const { quotes } = this.state;
+
+    if (quotes.length > 0) {
+      let index = Math.floor(Math.random() * quotes.length);
+      this.setState({ index });
+      this.setColors();
+    }
+  };
+
+  setColors = () => {
+    let index = Math.floor(Math.random() * colors.length);
+    r.style.setProperty("--backgroundColor", colors[index]);
+  };
+
+  render() {
+    const { quotes, index } = this.state;
+    const quote = quotes[index];
+    let twitterHref =
+      "https://twitter.com/intent/tweet?text=" +
+      encodeURIComponent(
+        '"' +
+          (quote && quote.quote) +
+          '" ' +
+          "\n[ By " +
+          (quote && quote.author) +
+          " ]" +
+          "\n\n Sent from #JavaScript Random #Quote Machine"
+      );
+
+    return (
+      <div id="container">
+        <div id="title">RANDOM QUOTE MACHINE</div>
+        <div id="quote-box">
+          <div id="text">
+            {" "}
+            <i class="fa fa-quote-left pr-3"> </i> {quote && quote.quote}
+          </div>
+          <div id="authorDashes">
+            {" "}
+            -- <span id="author"> {quote && quote.author} </span>
+          </div>
+          <hr />
+          <div id="links">
+            <a
+              type="button"
+              id="tweet-quote"
+              title="Tweet this Quote!"
+              href={twitterHref}
+              target="_top"
+            >
+              {" "}
+              <i className="fa-brands fa-square-twitter"> </i> Tweet{" "}
+            </a>
+
+            <a
+              type="button"
+              id="copy-quote"
+              title="Copy this Quote!"
+              onClick={() => {
+                navigator.clipboard.writeText(
+                  quote.quote + " (by " + quote.author + ")"
+                );
+              }}
+            >
+              {" "}
+              <i className="fa-solid fa-copy"></i> Copy Quote{" "}
+            </a>
+
+            <button id="new-quote" title="Next Quote!" onClick={this.getRandom}>
+              <i class="fa-solid fa-circle-chevron-right"></i> New Quote{" "}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<MyApp />, document.getElementById("root"));
+
+/*
+<a id="tumblr-quote" href="#">
+              {" "}
+              <i className="fa-brands fa-square-tumblr"> </i> Tumblr{" "}
+            </a>
+*/
