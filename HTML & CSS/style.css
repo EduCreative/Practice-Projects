@@ -1,0 +1,43 @@
+
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-size: 12px;
+        font-weight: bolder;
+        transition: all 0.5s ease;
+    }
+    
+    body{
+        display: flex;
+        justify-content: space-between;
+        background-color: rgb(0, 20, 20);
+    
+    }
+    
+    ul {
+        display: flex;
+        overflow: hidden;
+        list-style-type: none;
+        background-color: rgb(0, 100, 30);
+        justify-content: right;    
+        width: 100vw;
+    }
+        
+    ul li {    
+        background-color: rgb(80, 170, 100);
+        padding: 1rem 0.2rem;
+        margin: .3rem .1rem;    
+        border-radius: 1rem;   
+        text-align: center;
+        width: 6rem;
+    }
+    
+    ul li:hover {
+        background-color: rgb(0, 170, 100);        
+    }
+    
+    ul li a{
+        text-decoration: none;
+        color: white;
+    }

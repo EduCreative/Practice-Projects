@@ -1,0 +1,190 @@
+const buttons = [
+{ id: "clear", value: "AC" },
+//{ id: "clear", value: "C" },
+{ id: "divide", value: "/" },
+{ id: "multiply", value: "*" },
+{ id: "one", value: "1" },
+{ id: "two", value: "2" },
+{ id: "three", value: "3" },
+{ id: "subtract", value: "-" },
+{ id: "four", value: "4" },
+{ id: "five", value: "5" },
+{ id: "six", value: "6" },
+{ id: "add", value: "+" },
+{ id: "seven", value: "7" },
+{ id: "eight", value: "8" },
+{ id: "nine", value: "9" },
+{ id: "equals", value: "=" },
+{ id: "zero", value: "0" },
+//{ id: "zero", value: "0" },
+{ id: "decimal", value: "." }
+//{ id: "equals", value: "=" }
+];
+
+class MyApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      display: "0",
+      //pv: "", //Previous Value
+      cv: "0", //Current Value
+      sign: "" };
+
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(event) {
+    let key = event.target.value;
+
+    if (key === "AC") {
+      this.setState({ display: "0", cv: "0", sign: "" });
+    }
+
+    if (key === "0") {
+      if (this.state.display !== "0") {
+        this.setState({
+          display: this.state.display + key,
+          cv: this.state.cv + key });
+
+      }
+    }
+
+    if (/[1-9]/.test(key)) {
+      if (this.state.sign === "=" || this.state.display === "0") {
+        this.setState({ display: key, cv: key, sign: "" });
+      } else {
+        this.setState({
+          display: this.state.display + key,
+          cv: this.state.cv + key,
+          sign: "" });
+
+      }
+    }
+
+    if (key === ".") {
+      if (!this.state.cv.includes(".")) {
+        this.setState({
+          display: this.state.display + key,
+          cv: this.state.cv + key });
+
+      }
+    }
+
+    if (key === "=") {
+      let answer = this.state.display;
+      answer = eval(answer).toString();
+      this.setState({
+        display: answer,
+        cv: answer,
+        sign: "=" });
+
+    }
+
+    if (key === "+" || key === "-" || key === "*" || key === "/") {
+      let exp = this.state.display;
+      let lastSign = exp.slice(exp.length - 1);
+      if (
+      lastSign === "+" ||
+      lastSign === "-" ||
+      lastSign === "*" ||
+      lastSign === "/")
+      {
+        exp = exp.slice(0, exp.length - 1);
+
+        if (key === "*" || key === "/") {
+          this.setState({
+            display: exp + key,
+            sign: key,
+            cv: key });
+
+        } else if (key === "+") {
+          if (lastSign !== "-") {
+            this.setState({
+              display: exp + key,
+              sign: key,
+              cv: key });
+
+          } else {
+            const bLastSign = this.state.display.slice(
+            this.state.display.length - 2,
+            -1);
+
+            if (
+            bLastSign === "+" ||
+            bLastSign === "-" ||
+            bLastSign === "*" ||
+            bLastSign === "/")
+            {
+              const exp1 = this.state.display.slice(
+              0,
+              this.state.display.length - 2);
+
+              this.setState({ display: exp1 + "+", sign: key, cv: key });
+            } else {
+              this.setState({ display: exp + key, sign: key, cv: key });
+            }
+          }
+        } else if (key === "-") {
+          if (lastSign !== "-") {
+            this.setState({
+              display: this.state.display + key,
+              sign: key,
+              cv: key });
+
+          } else if (lastSign === "-") {
+            let bLastSign = this.state.display.slice(
+            this.state.display.length - 2,
+            -1);
+
+            if (
+            bLastSign === "+" ||
+            bLastSign === "-" ||
+            bLastSign === "*" ||
+            bLastSign === "/")
+            {
+              const exp1 = this.state.display.slice(
+              0,
+              this.state.display.length - 2);
+
+              this.setState({ display: exp1 + "+", sign: key, cv: key });
+            }
+          }
+        }
+      } else {
+        this.setState({
+          display: this.state.display + key,
+          sign: key,
+          cv: key });
+
+      }
+    }
+  }
+
+  render() {
+    return /*#__PURE__*/(
+      React.createElement("div", { className: "wrapper" }, /*#__PURE__*/
+      React.createElement("div", { className: "container" }, /*#__PURE__*/
+      React.createElement("div", { className: "display", id: "display" },
+      this.state.display), /*#__PURE__*/
+
+      React.createElement("div", { id: "input" }, this.state.cv), /*#__PURE__*/
+
+      React.createElement("div", { className: "buttonPanel" },
+      buttons.map((button) => /*#__PURE__*/
+      React.createElement("input", {
+        className: "buttons",
+        type: "button",
+        value: button.value,
+        id: button.id,
+        onClick: this.handleClick }))))));
+
+
+
+
+
+
+  }}
+
+
+ReactDOM.render( /*#__PURE__*/React.createElement(MyApp, null), document.getElementById("root"));
