@@ -23,16 +23,16 @@ body {
 #title {
   text-align: center;
   font-size: 1.6rem;
-  margin: 2rem;
+  margin: 0.5rem;
   color: #fff;
 }
 
 #quote-box {
   background: whitesmoke;
   padding: 0.6rem;
-  margin-top: 5rem;
+  margin-top: 3rem;
   height: auto;
-  width: 26rem;
+  width: 90vw;
   border-radius: 10px;
   background: linear-gradient(0deg, #9aa7c3, #b7c7e8);
   box-shadow: -0.5rem -0.5rem 0.5rem #444a57, 0.5rem 0.5rem 0.5rem #ffffff;
