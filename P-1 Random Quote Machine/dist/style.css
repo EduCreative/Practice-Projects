@@ -28,7 +28,7 @@ body {
 }
 
 #quote-box {
-  background: gray;
+  background-color: #fff;
   padding: 0.6rem;
   margin-top: 3rem;
   height: auto;
@@ -45,10 +45,11 @@ body {
   text-align: center;
   color: var(--backgroundColor);
   font-size: 2rem;
+  text-shadow: 0.1rem 0.1rem #000;
 }
 
 #authorDashes {
-  margin: 1rem;
+  margin: 0.2rem;
   text-align: right;
   font-size: 2rem;
 }
@@ -61,7 +62,7 @@ body {
   justify-content: center;
   align-items: center;
   color: var(--backgroundColor);
-  //margin: 2rem 2rem;
+  //margin: .2rem .2rem;
   //padding: 1rem 2rem;
 }
 
@@ -153,13 +154,14 @@ body {
   #links {
     display: flex;
     flex-wrap: nowrap;
-    margin: 1rem 0;
+    margin: 0.5rem 0;
   }
 
   #tweet-quote,
   #copy-quote,
   #new-quote {
+    font-size: 1rem;
     padding: 0.5rem;
-    height: 5rem;
+    height: 4rem;
   }
 }
