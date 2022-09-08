@@ -143,7 +143,7 @@ body {
 @media only screen and (min-width: 768px) {
   /* For desktop: */
   * {
-    //font-size: 22px;
+    font-size: 22px;
   }
 
   #title {
